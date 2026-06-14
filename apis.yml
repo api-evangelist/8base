@@ -1,0 +1,66 @@
+aid: 8base
+name: 8base
+description: |
+  8base is a comprehensive Backend-as-a-Service platform that transforms the entire
+  software development lifecycle by providing AI-assisted design, auto-generated
+  serverless GraphQL infrastructure powered by AWS, and low-code full-stack App
+  Builder tools. The platform enables developers and digital agencies to build
+  scalable, production-grade cloud applications with SOC 2 and HIPAA compliance
+  options without managing DevOps complexity.
+type: Index
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://www.8base.com
+baseURL: https://api.8base.com
+created: 2026-06-14
+modified: 2026-06-14
+specificationVersion: '0.19'
+tags:
+  - GraphQL
+  - Backend as a Service
+  - Low-Code
+  - Serverless
+  - App Builder
+  - Database
+  - Cloud Platform
+apis:
+  - aid: 8base:graphql-api
+    name: 8base GraphQL API
+    description: |
+      The 8base GraphQL API provides auto-generated queries, mutations, and
+      subscriptions for every data table in a workspace, covering full CRUD
+      operations out-of-the-box. Each workspace is assigned a unique API endpoint
+      at https://api.8base.com/<WORKSPACE_ID> and supports filtering, pagination,
+      full-text search, relational queries, and extensibility through custom
+      serverless functions.
+    tags:
+      - GraphQL
+      - Serverless
+      - Database
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.8base.com/backend/graphql-api/
+    baseURL: https://api.8base.com
+    properties:
+      - url: https://docs.8base.com/backend/graphql-api/
+        type: Documentation
+      - url: graphql/8base-graphql.md
+        type: GraphQL
+common:
+  - url: https://www.8base.com
+    type: Website
+  - url: https://docs.8base.com/backend/graphql-api/
+    type: Documentation
+  - url: https://www.linkedin.com/company/8base
+    type: LinkedIn
+  - url: https://github.com/8base
+    type: GitHubOrganization
+  - url: https://www.8base.com/pricing
+    type: Pricing
+  - url: plans/8base-plans.md
+    type: Plans
+  - url: rate-limits/8base-rate-limits.md
+    type: RateLimits
+  - url: finops/8base-finops.md
+    type: FinOps
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
