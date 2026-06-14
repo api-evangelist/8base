@@ -1,0 +1,732 @@
+# 8base GraphQL API Schema
+#
+# Source: Derived from 8base SDK source (github.com/8base/sdk), official documentation
+# (docs.8base.com/backend/graphql-api), and documented query/mutation patterns.
+#
+# Every 8base workspace endpoint is at: https://api.8base.com/{workspaceId}
+#
+# 8base auto-generates two queries and multiple mutations per user-defined table.
+# The schema below covers the built-in system types and the standard generated
+# operation patterns. User-defined table types are workspace-specific.
+
+scalar DateTime
+scalar JSON
+scalar Geography
+scalar BigInt
+
+# ─── Pagination & Meta ────────────────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type SuccessResponse {
+  success: Boolean
+}
+
+type CountResponse {
+  count: Int
+}
+
+# ─── File ─────────────────────────────────────────────────────────────────────
+
+type File {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  createdBy: User
+  fileId: String
+  downloadUrl: String
+  shareUrl: String
+  provider: String
+  meta: JSON
+  mods: JSON
+  filename: String
+  public: Boolean
+  settings: Settings
+}
+
+type FileListResponse {
+  items: [File!]!
+  count: Int!
+}
+
+input FileFilter {
+  id: IDPredicate
+  filename: StringPredicate
+  public: SwitchPredicate
+  createdAt: DateTimePredicate
+  updatedAt: DateTimePredicate
+  AND: [FileFilter!]
+  OR: [FileFilter!]
+}
+
+input FileSort {
+  filename: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input FileCreateInput {
+  fileId: String!
+  filename: String
+  public: Boolean
+  meta: JSON
+  mods: JSON
+}
+
+input FileUpdateInput {
+  id: ID!
+  fileId: String
+  filename: String
+  public: Boolean
+  meta: JSON
+  mods: JSON
+}
+
+# ─── Role & Permission ────────────────────────────────────────────────────────
+
+type Role {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  name: String!
+  description: String
+  users(
+    filter: UserFilter
+    sort: [UserSort!]
+    first: Int
+    skip: Int
+    after: String
+    before: String
+  ): UserListResponse
+  permissions(
+    filter: PermissionFilter
+    first: Int
+    skip: Int
+  ): PermissionListResponse
+}
+
+type RoleListResponse {
+  items: [Role!]!
+  count: Int!
+}
+
+input RoleFilter {
+  id: IDPredicate
+  name: StringPredicate
+  AND: [RoleFilter!]
+  OR: [RoleFilter!]
+}
+
+input RoleSort {
+  name: SortOrder
+  createdAt: SortOrder
+}
+
+input RoleCreateInput {
+  name: String!
+  description: String
+  users: UserRelationInput
+}
+
+input RoleUpdateInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+type Permission {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  resource: String
+  resourceType: String
+  permission: JSON
+  role: Role
+}
+
+type PermissionListResponse {
+  items: [Permission!]!
+  count: Int!
+}
+
+input PermissionFilter {
+  id: IDPredicate
+  resource: StringPredicate
+  AND: [PermissionFilter!]
+  OR: [PermissionFilter!]
+}
+
+# ─── User ─────────────────────────────────────────────────────────────────────
+
+type User {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  email: String!
+  firstName: String
+  lastName: String
+  status: String
+  origin: String
+  is8base: Boolean
+  isOwner: Boolean
+  timezone: String
+  avatar: File
+  roles(
+    filter: RoleFilter
+    sort: [RoleSort!]
+    first: Int
+    skip: Int
+  ): RoleListResponse
+  permissions(
+    filter: PermissionFilter
+    first: Int
+    skip: Int
+  ): PermissionListResponse
+}
+
+type UserListResponse {
+  items: [User!]!
+  count: Int!
+}
+
+input UserFilter {
+  id: IDPredicate
+  email: StringPredicate
+  firstName: StringPredicate
+  lastName: StringPredicate
+  status: StringPredicate
+  createdAt: DateTimePredicate
+  updatedAt: DateTimePredicate
+  roles: RoleFilter
+  AND: [UserFilter!]
+  OR: [UserFilter!]
+}
+
+input UserSort {
+  email: SortOrder
+  firstName: SortOrder
+  lastName: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input UserCreateInput {
+  email: String!
+  firstName: String
+  lastName: String
+  timezone: String
+  avatar: FileCreateInput
+  roles: RoleRelationInput
+}
+
+input UserUpdateInput {
+  id: ID!
+  email: String
+  firstName: String
+  lastName: String
+  timezone: String
+  avatar: FileUpdateInput
+  roles: RoleRelationInput
+}
+
+input UserRelationInput {
+  connect: [UserKeyFilter!]
+  disconnect: [UserKeyFilter!]
+  create: [UserCreateInput!]
+  reconnect: [UserKeyFilter!]
+}
+
+input UserKeyFilter {
+  id: ID
+  email: String
+}
+
+# ─── ApiToken ─────────────────────────────────────────────────────────────────
+
+type ApiToken {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  createdBy: User
+  name: String!
+  token: String
+  roles(
+    filter: RoleFilter
+    first: Int
+    skip: Int
+  ): RoleListResponse
+}
+
+type ApiTokenListResponse {
+  items: [ApiToken!]!
+  count: Int!
+}
+
+input ApiTokenFilter {
+  id: IDPredicate
+  name: StringPredicate
+  AND: [ApiTokenFilter!]
+  OR: [ApiTokenFilter!]
+}
+
+input ApiTokenSort {
+  name: SortOrder
+  createdAt: SortOrder
+}
+
+input ApiTokenCreateInput {
+  name: String!
+  roles: RoleRelationInput
+}
+
+# ─── EnvironmentVariable ──────────────────────────────────────────────────────
+
+type EnvironmentVariable {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  name: String!
+  value: String
+}
+
+type EnvironmentVariableListResponse {
+  items: [EnvironmentVariable!]!
+  count: Int!
+}
+
+input EnvironmentVariableFilter {
+  id: IDPredicate
+  name: StringPredicate
+  AND: [EnvironmentVariableFilter!]
+  OR: [EnvironmentVariableFilter!]
+}
+
+input EnvironmentVariableCreateInput {
+  name: String!
+  value: String!
+}
+
+input EnvironmentVariableUpdateInput {
+  id: ID!
+  name: String
+  value: String
+}
+
+# ─── Settings ─────────────────────────────────────────────────────────────────
+
+type Settings {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  passwordMinLength: Int
+  passwordRequireNumbers: Boolean
+  passwordRequireSpecial: Boolean
+  passwordRequireUppercase: Boolean
+  passwordRequireLowercase: Boolean
+  language: String
+  timezone: String
+  menuBar: JSON
+  landingPageImage: File
+  vanityUrl: String
+  userInterfaceStyle: String
+}
+
+# ─── TeamMember & TeamInvitation ──────────────────────────────────────────────
+
+type TeamMember {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  user: User
+  roles(
+    filter: RoleFilter
+    first: Int
+    skip: Int
+  ): RoleListResponse
+  isOwner: Boolean
+  status: String
+}
+
+type TeamMemberListResponse {
+  items: [TeamMember!]!
+  count: Int!
+}
+
+input TeamMemberFilter {
+  id: IDPredicate
+  status: StringPredicate
+  AND: [TeamMemberFilter!]
+  OR: [TeamMemberFilter!]
+}
+
+type TeamInvitation {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  invitedBy: User
+  invitee: String
+  status: String
+  firstName: String
+  lastName: String
+  roles: RoleListResponse
+}
+
+type TeamInvitationListResponse {
+  items: [TeamInvitation!]!
+  count: Int!
+}
+
+# ─── AuthenticationProfile ────────────────────────────────────────────────────
+
+type AuthenticationProfile {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: Int
+  name: String!
+  type: String
+  secret: String
+  managementDomain: String
+  clientId: String
+  databaseName: String
+  domain: String
+  roles(
+    filter: RoleFilter
+    first: Int
+    skip: Int
+  ): RoleListResponse
+}
+
+type AuthenticationProfileListResponse {
+  items: [AuthenticationProfile!]!
+  count: Int!
+}
+
+input AuthenticationProfileFilter {
+  id: IDPredicate
+  name: StringPredicate
+  type: StringPredicate
+  AND: [AuthenticationProfileFilter!]
+  OR: [AuthenticationProfileFilter!]
+}
+
+# ─── Predicate / Filter Input Types ──────────────────────────────────────────
+
+input IDPredicate {
+  equals: ID
+  not_equals: ID
+  in: [ID!]
+  not_in: [ID!]
+  is_empty: Boolean
+  is_not_empty: Boolean
+}
+
+input StringPredicate {
+  equals: String
+  not_equals: String
+  in: [String!]
+  not_in: [String!]
+  contains: String
+  not_contains: String
+  starts_with: String
+  ends_with: String
+  is_empty: Boolean
+  is_not_empty: Boolean
+}
+
+input IntPredicate {
+  equals: Int
+  not_equals: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  in: [Int!]
+  not_in: [Int!]
+  is_empty: Boolean
+  is_not_empty: Boolean
+}
+
+input FloatPredicate {
+  equals: Float
+  not_equals: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+}
+
+input DateTimePredicate {
+  equals: DateTime
+  not_equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  in: [DateTime!]
+  not_in: [DateTime!]
+  is_empty: Boolean
+  is_not_empty: Boolean
+}
+
+input SwitchPredicate {
+  equals: Boolean
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# ─── Relation helpers ────────────────────────────────────────────────────────
+
+input RoleRelationInput {
+  connect: [RoleKeyFilter!]
+  disconnect: [RoleKeyFilter!]
+  create: [RoleCreateInput!]
+  reconnect: [RoleKeyFilter!]
+}
+
+input RoleKeyFilter {
+  id: ID
+  name: String
+}
+
+# ─── SubscriptionFilter ───────────────────────────────────────────────────────
+
+enum MutationSubscriptionType {
+  create
+  update
+  delete
+}
+
+input SubscriptionFilter {
+  mutation_in: [MutationSubscriptionType!]
+  node: JSON
+  updatedFields: JSON
+}
+
+# ─── System / Introspection ───────────────────────────────────────────────────
+
+type SystemIntrospectionResponse {
+  url: String
+}
+
+type SystemEnvironment {
+  introspection: Boolean
+}
+
+# ─── Query ────────────────────────────────────────────────────────────────────
+#
+# 8base auto-generates these pairs for every workspace table:
+#   tableName(id: ID, filter: <TableName>Filter): <TableName>
+#   tableNameList(filter: <TableName>Filter, sort: [<TableName>Sort!], first: Int,
+#                 skip: Int, after: String, before: String, last: Int,
+#                 withDeleted: Boolean): <TableName>ListResponse
+#
+# The built-in system queries shown below follow this same pattern.
+
+type Query {
+  # Current authenticated user
+  user: User!
+
+  # Users table queries
+  usersList(
+    filter: UserFilter
+    sort: [UserSort!]
+    first: Int
+    skip: Int
+    after: String
+    before: String
+    last: Int
+    withDeleted: Boolean
+  ): UserListResponse!
+
+  # Files table queries
+  file(id: ID, fileId: String): File
+
+  filesList(
+    filter: FileFilter
+    sort: [FileSort!]
+    first: Int
+    skip: Int
+    after: String
+    before: String
+    last: Int
+    withDeleted: Boolean
+  ): FileListResponse!
+
+  # Roles table queries
+  role(id: ID, name: String): Role
+
+  rolesList(
+    filter: RoleFilter
+    sort: [RoleSort!]
+    first: Int
+    skip: Int
+    after: String
+    before: String
+    last: Int
+  ): RoleListResponse!
+
+  # ApiTokens table queries
+  apiToken(id: ID, name: String): ApiToken
+
+  apiTokensList(
+    filter: ApiTokenFilter
+    sort: [ApiTokenSort!]
+    first: Int
+    skip: Int
+  ): ApiTokenListResponse!
+
+  # EnvironmentVariables table queries
+  environmentVariable(id: ID, name: String): EnvironmentVariable
+
+  environmentVariablesList(
+    filter: EnvironmentVariableFilter
+    first: Int
+    skip: Int
+  ): EnvironmentVariableListResponse!
+
+  # Settings
+  setting: Settings
+
+  # TeamMembers queries
+  teamMember(id: ID): TeamMember
+
+  teamMembersList(
+    filter: TeamMemberFilter
+    first: Int
+    skip: Int
+  ): TeamMemberListResponse!
+
+  # AuthenticationProfiles queries
+  authenticationProfile(id: ID, name: String): AuthenticationProfile
+
+  authenticationProfilesList(
+    filter: AuthenticationProfileFilter
+    first: Int
+    skip: Int
+  ): AuthenticationProfileListResponse!
+
+  # TeamInvitations
+  teamInvitationsList(
+    first: Int
+    skip: Int
+  ): TeamInvitationListResponse!
+
+  # System introspection
+  system: SystemQuery
+}
+
+type SystemQuery {
+  introspection: SystemIntrospectionResponse
+  environment: SystemEnvironment
+}
+
+# ─── Mutation ─────────────────────────────────────────────────────────────────
+#
+# 8base auto-generates these operations for every workspace table:
+#   tableNameCreate(data: <TableName>CreateInput!): <TableName>
+#   tableNameCreateMany(data: [<TableName>CreateManyInput]!): CountResponse
+#   tableNameUpdate(data: <TableName>UpdateInput!, filter: <TableName>KeyFilter): <TableName>
+#   tableNameUpdateByFilter(data: <TableName>UpdateByFilterInput!, filter: <TableName>Filter): <TableName>ListResponse
+#   tableNameDelete(data: <TableName>DeleteInput, filter: <TableName>KeyFilter, force: Boolean): SuccessResponse
+#   tableNameDeleteByFilter(filter: <TableName>Filter!, force: Boolean): SuccessResponse
+#   tableNameDestroy(filter: <TableName>KeyFilter!): SuccessResponse
+#   tableNameDestroyByFilter(filter: <TableName>Filter!): SuccessResponse
+#   tableNameRestore(id: String!): <TableName>
+
+type Mutation {
+  # Users mutations
+  userCreate(data: UserCreateInput!): User!
+  userUpdate(data: UserUpdateInput!, filter: UserKeyFilter): User!
+  userDelete(data: UserDeleteInput, filter: UserKeyFilter, force: Boolean): SuccessResponse
+  userDestroy(filter: UserKeyFilter!): SuccessResponse
+  userRestore(id: String!): User
+
+  # Roles mutations
+  roleCreate(data: RoleCreateInput!): Role!
+  roleUpdate(data: RoleUpdateInput!): Role!
+  roleDelete(id: ID!, force: Boolean): SuccessResponse
+  roleDestroy(id: ID!): SuccessResponse
+
+  # Files mutations
+  fileCreate(data: FileCreateInput!): File!
+  fileUpdate(data: FileUpdateInput!): File!
+  fileDelete(id: ID!, force: Boolean): SuccessResponse
+  fileDestroy(id: ID!): SuccessResponse
+
+  # ApiTokens mutations
+  apiTokenCreate(data: ApiTokenCreateInput!): ApiToken!
+  apiTokenDelete(id: ID!): SuccessResponse
+
+  # EnvironmentVariables mutations
+  environmentVariableCreate(data: EnvironmentVariableCreateInput!): EnvironmentVariable!
+  environmentVariableUpdate(data: EnvironmentVariableUpdateInput!): EnvironmentVariable!
+  environmentVariableDelete(id: ID!): SuccessResponse
+
+  # TeamMembers mutations
+  teamMemberUpdate(id: ID!, roles: RoleRelationInput): TeamMember
+  teamMemberDelete(id: ID!, force: Boolean): SuccessResponse
+
+  # TeamInvitations mutations
+  teamInvitationCreate(email: String!, firstName: String, lastName: String, roles: RoleRelationInput): TeamInvitation!
+  teamInvitationDelete(id: ID!): SuccessResponse
+  teamInvitationAccept(id: String!): TeamMember
+
+  # System mutations
+  system: SystemMutation
+}
+
+type SystemMutation {
+  introspectionEnable: SuccessResponse
+  introspectionDisable: SuccessResponse
+}
+
+input UserDeleteInput {
+  id: ID
+  email: String
+}
+
+# ─── Subscription ─────────────────────────────────────────────────────────────
+#
+# 8base auto-generates a subscription for every workspace table:
+#   TableName(filter: SubscriptionFilter): <TableName>SubscriptionPayload
+#
+# Subscriptions use WebSocket (wss://) transport.
+
+type UserSubscriptionPayload {
+  mutation: MutationSubscriptionType!
+  node: User
+}
+
+type FileSubscriptionPayload {
+  mutation: MutationSubscriptionType!
+  node: File
+}
+
+type RoleSubscriptionPayload {
+  mutation: MutationSubscriptionType!
+  node: Role
+}
+
+type Subscription {
+  Users(filter: SubscriptionFilter): UserSubscriptionPayload
+  Files(filter: SubscriptionFilter): FileSubscriptionPayload
+  Roles(filter: SubscriptionFilter): RoleSubscriptionPayload
+  # User-defined table subscriptions follow the same pattern:
+  # <TableName>(filter: SubscriptionFilter): <TableName>SubscriptionPayload
+}
