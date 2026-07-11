@@ -45,6 +45,8 @@ apis:
       - url: graphql/8base-graphql.md
         type: GraphQL
 common:
+  - type: DomainSecurity
+    url: security/8base-domain-security.yml
   - url: https://www.8base.com
     type: Website
   - url: https://docs.8base.com/backend/graphql-api/
@@ -61,6 +63,8 @@ common:
     type: RateLimits
   - url: finops/8base-finops.md
     type: FinOps
+  - url: https://www.8base.com/blog
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
