@@ -1,0 +1,14 @@
+{
+  "repo": "8base",
+  "feeds": [
+    {
+      "source": "https://www.8base.com/blog",
+      "feed_url": "https://www.8base.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 8
+}
