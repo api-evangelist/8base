@@ -8,7 +8,18 @@ description: |
   scalable, production-grade cloud applications with SOC 2 and HIPAA compliance
   options without managing DevOps complexity.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/8base.png
 url: https://www.8base.com
 baseURL: https://api.8base.com
 created: 2026-06-14
