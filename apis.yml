@@ -24,7 +24,7 @@ url: https://www.8base.com
 baseURL: https://api.8base.com
 created: 2026-06-14
 modified: 2026-06-14
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - GraphQL
   - Backend as a Service
