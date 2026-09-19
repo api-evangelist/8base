@@ -36,6 +36,10 @@ baseURL: https://api.8base.com
 created: 2026-06-14
 modified: 2026-06-14
 specificationVersion: '0.23'
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-17
+x-docs-hosting: aws-cloudfront
 tags:
   - GraphQL
   - Backend-as-a-Service
