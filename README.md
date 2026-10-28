@@ -66,27 +66,91 @@
 
 8base is a comprehensive Backend-as-a-Service platform that transforms the entire software development lifecycle by providing AI-assisted design, auto-generated serverless GraphQL infrastructure powered by AWS, and low-code full-stack App Builder tools. The platform enables developers and digital agencies to build scalable, production-grade cloud applications with SOC 2 and HIPAA compliance options without managing DevOps complexity.
 
-## Links
+**Areas:** GraphQL · Backend-as-a-Service · Low-Code · Serverless · App Builder · Database · Cloud Platform
 
-- **Website:** https://www.8base.com
-- **Documentation:** https://docs.8base.com/backend/graphql-api/
-- **Pricing:** https://www.8base.com/pricing
-- **GitHub:** https://github.com/8base
-- **LinkedIn:** https://www.linkedin.com/company/8base
+## 8base on APIs.io
 
-## API
+Everything profiled for 8base is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/8base/](https://apis.io/providers/8base/)** — or go straight to one of the APIs or properties below.
 
-8base exposes a fully auto-generated GraphQL API for every workspace. The API endpoint format is:
+### APIs (1)
 
-```
-https://api.8base.com/<WORKSPACE_ID>
-```
+- [8base GraphQL API](https://apis.io/apis/8base/graphql-api/) — The 8base GraphQL API provides auto-generated queries, mutations, and subscriptions for every data table in a workspace, covering full CRUD operations…
 
-The API supports queries, mutations, and subscriptions covering all CRUD operations on workspace data tables, with built-in filtering, pagination, full-text search, relational queries, and extensibility through serverless custom functions.
+### Published properties
 
-## Contents
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- `apis.yml` — APIs.json 0.19 catalog entry
-- `plans/8base-plans.md` — Detailed pricing plans and tier features
-- `rate-limits/8base-rate-limits.md` — Monthly usage quotas and overage rates
-- `finops/8base-finops.md` — Cost model, cost drivers, and optimization guidance
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [8base GraphQL API](https://apis.io/graphqls/8base/8base-graphql/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [8Base Domain Security](https://apis.io/security/8base/8base-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.8base.com)
+- [Documentation](https://docs.8base.com/backend/graphql-api/)
+- [Pricing](https://www.8base.com/pricing)
+- [Blog](https://www.8base.com/blog)
+- [GitHub](https://github.com/8base)
+
+## API Evangelist rating
+
+**Kin Score 19.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 35.1 |
+| Contract governance | 0.0 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 10.5 |
+
+**Agent readiness 15.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/8base/](https://apis.io/providers/8base/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for 8base: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/8base/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
