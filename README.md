@@ -64,7 +64,12 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-8base is a comprehensive Backend-as-a-Service platform that transforms the entire software development lifecycle by providing AI-assisted design, auto-generated serverless GraphQL infrastructure powered by AWS, and low-code full-stack App Builder tools. The platform enables developers and digital agencies to build scalable, production-grade cloud applications with SOC 2 and HIPAA compliance options without managing DevOps complexity.
+8base is a comprehensive Backend-as-a-Service platform that transforms the entire
+software development lifecycle by providing AI-assisted design, auto-generated
+serverless GraphQL infrastructure powered by AWS, and low-code full-stack App
+Builder tools. The platform enables developers and digital agencies to build
+scalable, production-grade cloud applications with SOC 2 and HIPAA compliance
+options without managing DevOps complexity.
 
 **Areas:** GraphQL · Backend-as-a-Service · Low-Code · Serverless · App Builder · Database · Cloud Platform
 
@@ -90,7 +95,7 @@ GraphQL schemas.
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [8Base Domain Security](https://apis.io/security/8base/8base-domain-security/)
+- [8base Domain Security](https://apis.io/security/8base/8base-domain-security/)
 
 ## Where to find this API
 
@@ -104,18 +109,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 19.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+**Kin Score 18.5** — emerging · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 73.2 |
 | Contract quality | 35.1 |
 | Contract governance | 0.0 |
-| Operational transparency | 5.3 |
+| Operational transparency | 4.8 |
 | Developer ergonomics | 11.9 |
-| Access clarity | 10.5 |
+| Access clarity | 8.5 |
 
-**Agent readiness 15.5** — agent-aware
+**Agent readiness 15.1** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -138,8 +143,14 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Protected Resource Metadata | — |
 | Dynamic Client Registration | — |
 | Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+**Regulatory alignment 0.0** — Horizontal (data, software, accessibility, platform)
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/8base/](https://apis.io/providers/8base/).
 
